@@ -8,15 +8,14 @@ module SpreeReviews
     config.generators do |g|
       g.test_framework :rspec
     end
-  Rails.application.config.after_initialize do
 
-    puts "pre"
 
-    initializer 'spree_reviews.environment', before: :load_config_initializers do |_app|
-      Spree::Reviews::Config = Spree::ReviewSetting.new
+    initializer 'spree_reviews.environment' do #, before: :load_config_initializers do |_app|
+      config.after_initialize do |app|
+        Spree::Reviews::Config = Spree::ReviewSetting.new
+      end
     end
 
-    puts "post"
 
   end
     def self.activate
