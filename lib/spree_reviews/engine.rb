@@ -9,9 +9,15 @@ module SpreeReviews
       g.test_framework :rspec
     end
   Rails.application.config.after_initialize do
+
+    puts "pre"
+
     initializer 'spree_reviews.environment', before: :load_config_initializers do |_app|
       Spree::Reviews::Config = Spree::ReviewSetting.new
     end
+
+    puts "post"
+
   end
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/*_decorator*.rb')) do |c|
